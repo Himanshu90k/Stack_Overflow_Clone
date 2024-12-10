@@ -11,7 +11,7 @@ export interface question {
     userposted: string;
 };
 
-type questionlist = question[];
+export type questionlist = question[];
 
 type QuestionlistProps = {
     questionlist: questionlist;
