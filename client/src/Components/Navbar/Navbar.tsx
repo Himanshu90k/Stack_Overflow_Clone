@@ -9,14 +9,14 @@ type NavbarProps = {
     handleSlidein: () => void;
 };
 
-const Navbar:React.FC<NavbarProps> = () => {
+const Navbar:React.FC<NavbarProps> = ({handleSlidein}) => {
 
     var User = null;
 
     return (
         <nav className="main-nav">
             <div className="navbar">
-                <button className="slide-in-icon">
+                <button className="slide-in-icon" onClick={() => handleSlidein()}>
                     <img src={bars} alt="bars" width='15'/>
                 </button>
                 <div className="navbar-1">

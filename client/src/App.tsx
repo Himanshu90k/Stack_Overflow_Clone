@@ -1,6 +1,8 @@
 import Navbar from './Components/Navbar/Navbar';
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
+import Allroutes from './Allroutes';
+import './App.css';
 
 function App() {
 
@@ -21,6 +23,7 @@ function App() {
     <div className='App'>
       <Router>
         <Navbar handleSlidein = {handleSlidein}/>
+        <Allroutes slidein={slidein} handleSlidein={handleSlidein}/>
       </Router>
     </div>
   );
