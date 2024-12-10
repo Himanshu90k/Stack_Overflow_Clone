@@ -24,8 +24,8 @@ const Homemainbar = () => {
                     <h1>Loading...</h1>
                 ) : (
                     <>
-                        <p>{questionlist.data.length} questions</p>
-                        <Questionlist questionlist={questionlist.data}/>
+                        <p>{questionlist.length} questions</p>
+                        <Questionlist questionlist={questionlist}/>
                     </>
                 )}
             </div>
