@@ -12,6 +12,7 @@ type NavbarProps = {
 const Navbar:React.FC<NavbarProps> = ({handleSlidein}) => {
 
     var User = null;
+    const navigate = useNavigate();
 
     return (
         <nav className="main-nav">
@@ -39,7 +40,7 @@ const Navbar:React.FC<NavbarProps> = ({handleSlidein}) => {
                 </div>
                 <div className="navbar-2">
                     {User === null? (
-                        <Link to='/' className="nav-item nav-links">
+                        <Link to='/Auth' className="nav-item nav-links">
                             Log in
                         </Link>
                     ):(
