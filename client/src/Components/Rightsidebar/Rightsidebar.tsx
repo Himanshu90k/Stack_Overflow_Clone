@@ -1,8 +1,13 @@
+import './Rightsidebar.css';
+import Widget from './Widget';
+import Widgettag from './Widgettag';
+
 const Rightsidebar = () => {
     return (
-        <div>
-            Rightsidebar
-        </div>
+        <aside className='right-sidebar'>
+            <Widget />
+            <Widgettag />
+        </aside>
     )
 };
 

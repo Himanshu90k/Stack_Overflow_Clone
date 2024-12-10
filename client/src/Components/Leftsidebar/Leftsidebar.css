@@ -13,7 +13,7 @@
     background-color: inherit;
     width: 100%;
     border: none;
-    padding: 0% 20px;
+    padding: 0% 0%;
 }
 
 .side-nav {
@@ -29,7 +29,7 @@
 }
 
 .side-nav-div div {
-    padding-left: 10px;
+    padding-left: 20px;
 }
 
 .side-nav-links {
