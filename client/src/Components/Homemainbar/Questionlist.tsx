@@ -1,14 +1,24 @@
 import Question from "./Question";
 
+export interface answer {
+    answerbody: string;
+    useranswered: string;
+    userid: string;
+    answeredon: string;
+};
+
 export interface question {
     _id: string;
+    questiontitle: string;
+    questionbody: string;
+    questiontags: string[];
+    noofanswers: number;
     upvote: string[];
     downvote: string[];
-    noofanswers: number;
-    questiontitle: string;
-    questiontags: string[];
-    askedon: Date;
     userposted: string;
+    userid: string;
+    askedon: string;
+    answer: answer[];
 };
 
 export type questionlist = question[];

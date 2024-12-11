@@ -4,6 +4,7 @@ import Askquestion from './pages/Askquestion/Askquestion';
 import Auth from './pages/Auth/Auth';
 import Question from './pages/Question/Question';
 import Displayquestion from './pages/Question/Displayquestion';
+import Tags from './pages/Tags/Tags';
 
 type AllroutesProps = {
     slidein: boolean;
@@ -18,6 +19,7 @@ const Allroutes:React.FC<AllroutesProps> = ({slidein, handleSlidein}) => {
             <Route path='/Auth' element={<Auth />} />
             <Route path='/Question' element={<Question slidein={slidein} handleSlidein={handleSlidein}/>} />
             <Route path='/Question/:id' element={<Displayquestion slidein={slidein} handleSlidein={handleSlidein}/>} />
+            <Route path='/Tags' element={<Tags slidein={slidein} handleSlidein={handleSlidein}/>} />
         </Routes>
     )
 }
