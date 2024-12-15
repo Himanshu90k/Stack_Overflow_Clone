@@ -1,5 +1,6 @@
 import { UserType } from "../Users/Userslist";
 import { SetStateAction, Dispatch, useState } from "react";
+import './Userprofile.css';
 
 type EditprofileformProps = {
     currentuser: UserType;
