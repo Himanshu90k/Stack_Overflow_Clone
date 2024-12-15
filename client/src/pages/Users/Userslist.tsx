@@ -12,7 +12,7 @@ export interface UserType {
     joinedon: string;
 };
 
-type UsersListType = UserType[];
+export type UsersListType = UserType[];
 
 const Userslist = () => {
 
