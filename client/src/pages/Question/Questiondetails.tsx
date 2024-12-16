@@ -8,120 +8,18 @@ import Avatar from "../../Components/Avatar/Avatar";
 import Displayanswer from "./Displayanswer";
 import { Link, useNavigate, useLocation, useParams } from "react-router-dom";
 import { questionlist } from "../../Components/Homemainbar/Questionlist";
+import { UseSelector, useDispatch, useSelector } from "react-redux";
+import { deletequestion, votequestion } from "../../action/question";
 
 
 const Questiondetails = () => {
 
     const { id } = useParams();
     const [answer, setAnswer] = useState("");
-    const questionlist: questionlist = [
-        {
-            "_id": "ql",
-            "questiontitle": "How to implement a binary search algorithm in Python?",
-            "questionbody": "I am trying to implement a binary search algorithm in Python bu I am stuck. Can someone provide a simple example",
-            "questiontags": ["Python", "Algorithms", "Binary Search"],
-            "noofanswers": 2,
-            "upvote": ["user123", "user456"],
-            "downvote": ["user789"],
-            "userposted": "codeNewbie",
-            "userid": "u12345",
-            "askedon": "2024-06-10T12:00:00Z",
-            "answer": [
-                {
-                    "answerbody": "Here's a simple example of a binary search algorithm in Python:\n```python\ndef binary_search(arr, x):\n",
-                    "useranswered": "algoExpert",
-                    "userid": "u6789",
-                    "answeredon": "2024-06-10T13:00:00Z"
-                },
-                {
-                    "answerbody": "Here's a simple example of a binary search algorithm in Python:\n```python\ndef binary_search(arr, x):\n",
-                    "useranswered": "algoExpert",
-                    "userid": "u6789",
-                    "answeredon": "2024-06-10T13:00:00Z"
-                }
-            ]
-        },
-        {
-            "_id": "ql",
-            "questiontitle": "How to implement a binary search algorithm in Python?",
-            "questionbody": "I am trying to implement a binary search algorithm in Python bu I am stuck. Can someone provide a simple example",
-            "questiontags": ["Python", "Algorithms", "Binary Search"],
-            "noofanswers": 2,
-            "upvote": ["user123", "user456"],
-            "downvote": ["user789"],
-            "userposted": "codeNewbie",
-            "userid": "u12345",
-            "askedon": "2024-06-10T12:00:00Z",
-            "answer": [
-                {
-                    "answerbody": "Here's a simple example of a binary search algorithm in Python:\n```python\ndef binary_search(arr, x):\n",
-                    "useranswered": "algoExpert",
-                    "userid": "u6789",
-                    "answeredon": "2024-06-10T13:00:00Z"
-                },
-                {
-                    "answerbody": "Here's a simple example of a binary search algorithm in Python:\n```python\ndef binary_search(arr, x):\n",
-                    "useranswered": "algoExpert",
-                    "userid": "u6789",
-                    "answeredon": "2024-06-10T13:00:00Z"
-                }
-            ]
-        },
-        {
-            "_id": "ql",
-            "questiontitle": "How to implement a binary search algorithm in Python?",
-            "questionbody": "I am trying to implement a binary search algorithm in Python bu I am stuck. Can someone provide a simple example",
-            "questiontags": ["Python", "Algorithms", "Binary Search"],
-            "noofanswers": 2,
-            "upvote": ["user123", "user456"],
-            "downvote": ["user789"],
-            "userposted": "codeNewbie",
-            "userid": "u12345",
-            "askedon": "2024-06-10T12:00:00Z",
-            "answer": [
-                {
-                    "answerbody": "Here's a simple example of a binary search algorithm in Python:\n```python\ndef binary_search(arr, x):\n",
-                    "useranswered": "algoExpert",
-                    "userid": "u6789",
-                    "answeredon": "2024-06-10T13:00:00Z"
-                },
-                {
-                    "answerbody": "Here's a simple example of a binary search algorithm in Python:\n```python\ndef binary_search(arr, x):\n",
-                    "useranswered": "algoExpert",
-                    "userid": "u6789",
-                    "answeredon": "2024-06-10T13:00:00Z"
-                }
-            ]
-        },
-        {
-            "_id": "ql",
-            "questiontitle": "How to implement a binary search algorithm in Python?",
-            "questionbody": "I am trying to implement a binary search algorithm in Python bu I am stuck. Can someone provide a simple example",
-            "questiontags": ["Python", "Algorithms", "Binary Search"],
-            "noofanswers": 2,
-            "upvote": ["user123", "user456"],
-            "downvote": ["user789"],
-            "userposted": "codeNewbie",
-            "userid": "u12345",
-            "askedon": "2024-06-10T12:00:00Z",
-            "answer": [
-                {
-                    "answerbody": "Here's a simple example of a binary search algorithm in Python:\n```python\ndef binary_search(arr, x):\n",
-                    "useranswered": "algoExpert",
-                    "userid": "u6789",
-                    "answeredon": "2024-06-10T13:00:00Z"
-                },
-                {
-                    "answerbody": "Here's a simple example of a binary search algorithm in Python:\n```python\ndef binary_search(arr, x):\n",
-                    "useranswered": "algoExpert",
-                    "userid": "u6789",
-                    "answeredon": "2024-06-10T13:00:00Z"
-                }
-            ]
-        }
-    ];
+    const dispatch = useDispatch();
+    const questionlist: questionlist = useSelector((state) => state.questionreducer);
 
-    const user = null;
+    const user = useSelector((state) => state.currentuserreducer);
     const location = useLocation();
     const navigate = useNavigate();
     const url = "http://localhost:3000";
@@ -146,13 +44,15 @@ const Questiondetails = () => {
     };
 
     const handleDelete = () => {
-
+        dispatch(deletequestion(id, navigate));
     };
 
     const handleupvote = () => {
         if(user === null) {
             alert("Login or Signup to answer a question");
             navigate('/Auth');
+        } else {
+            dispatch(votequestion(id, "upvote"));
         }
     };
 
@@ -160,16 +60,18 @@ const Questiondetails = () => {
         if(user === null) {
             alert("Login or Signup to answer a question");
             navigate('/Auth');
+        } else {
+            dispatch(votequestion(id, 'downvote'));
         }
     };
 
     return (
         <div className="question-details-page">
-            {questionlist === null ? (
+            {questionlist.data === null ? (
                 <h1>Loading...</h1>
             ) : (
                 <>
-                    {questionlist.filter((question) => question._id === id).map((question) => (
+                    {questionlist.data.filter((question) => question._id === id).map((question) => (
                         <div key={question._id}>
                             <section className="question-details-container">
                                 <h1>{question.questiontitle}</h1>

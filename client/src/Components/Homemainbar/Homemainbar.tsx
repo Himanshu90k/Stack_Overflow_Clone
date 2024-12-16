@@ -1,15 +1,15 @@
 import './Homemainbar.css';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { UseSelector } from 'react-redux';
+import { useSelector, UseSelector } from 'react-redux';
 import Questionlist from './Questionlist';
 import { questionlist } from './Questionlist';
 
 const Homemainbar = () => {
 
-    const user = 1;
+    const user = useSelector((state) => state.currentuserreducer);
     const location = useLocation();
     const navigate = useNavigate();
-    const questionlist: questionlist | null = null;
+    const questionlist: questionlist | null = useSelector((state) => state.questionreducer);
     const checkauth = () => {
         if(user === null) {
             alert("Login or signup to ask a question");
@@ -30,12 +30,12 @@ const Homemainbar = () => {
                 <button className='ask-btn' onClick={checkauth}>Ask Questions</button>
             </div>
             <div>
-                {questionlist === null ? (
+                {questionlist.data === null ? (
                     <h1>Loading...</h1>
                 ) : (
                     <>
-                        <p>{questionlist !== null? questionlist.length : null} questions</p>
-                        <Questionlist questionlist={questionlist}/>
+                        <p>{questionlist.data.length} questions</p>
+                        <Questionlist questionlist={questionlist.data}/>
                     </>
                 )}
             </div>

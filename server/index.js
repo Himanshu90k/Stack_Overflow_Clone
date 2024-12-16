@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import userroutes from './routes/user.js';
+import questionroutes from './routes/question.js';
+import answerroutes from './routes/answer.js';
 
 dotenv.config();
 const PORT = process.env.PORT || 6000;
@@ -14,6 +16,8 @@ app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded( {extended: false} ));
 
 app.use('/user', userroutes);
+app.use('/question', questionroutes);
+app.use('/answer', answerroutes);
 app.get('/', async (req, res) => {
     res.status(200).json({ "message": "server is running." });
 });
