@@ -1,5 +1,6 @@
 import './Users.css';
 import User from './User';
+import { useSelector, UseSelector } from 'react-redux';
 
 export interface UserType {
     _id: string;
@@ -16,48 +17,8 @@ export type UsersListType = UserType[];
 
 const Userslist = () => {
 
-    const users: UsersListType = [
-        {
-            "_id": "u54321",
-            "name": "Jane Smith",
-            "email": "janesmith@example.com",
-            "password": "mypassword456",
-            "about": "Data Scientist with expertise in machine learning and big data.",
-            "tags": ["Machine Learning", "Python", "Data Science"],
-            "answered": 25,
-            "joinedon": "2024-06-10T09:00:00Z"
-        },
-        {
-            "_id": "u54321",
-            "name": "Jane Smith",
-            "email": "janesmith@example.com",
-            "password": "mypassword456",
-            "about": "Data Scientist with expertise in machine learning and big data.",
-            "tags": ["Machine Learning", "Python", "Data Science"],
-            "answered": 25,
-            "joinedon": "2024-06-10T09:00:00Z"
-        },
-        {
-            "_id": "u54321",
-            "name": "Jane Smith",
-            "email": "janesmith@example.com",
-            "password": "mypassword456",
-            "about": "Data Scientist with expertise in machine learning and big data.",
-            "tags": ["Machine Learning", "Python", "Data Science"],
-            "answered": 25,
-            "joinedon": "2024-06-10T09:00:00Z"
-        },
-        {
-            "_id": "u54321",
-            "name": "Jane Smith",
-            "email": "janesmith@example.com",
-            "password": "mypassword456",
-            "about": "Data Scientist with expertise in machine learning and big data.",
-            "tags": ["Machine Learning", "Python", "Data Science"],
-            "answered": 25,
-            "joinedon": "2024-06-10T09:00:00Z"
-        }
-    ];
+    const users: UsersListType = useSelector((state) => state.usersreducer);
+    console.log(users);
 
     return (
         <div className='user-list-container'>

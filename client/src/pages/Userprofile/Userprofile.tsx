@@ -2,6 +2,7 @@ import Leftsidebar from "../../Components/Leftsidebar/Leftsidebar";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import moment from "moment";
+import { useSelector, UseSelector } from "react-redux";
 import Avatar from "../../Components/Avatar/Avatar";
 import Editprofileform from "./Editprofileform";
 import Profilebio from "./Profilebio";
@@ -17,60 +18,10 @@ const Userprofile:React.FC<UserprofileProps> = ({slidein}) => {
 
     const { id } = useParams<string>();
     const [Switch, setswitch] = useState(false);
-    const users: UsersListType = [
-        {
-            "_id": "u54321",
-            "name": "Jane Smith",
-            "email": "janesmith@example.com",
-            "password": "mypassword456",
-            "about": "Data Scientist with expertise in machine learning and big data.",
-            "tags": ["Machine Learning", "Python", "Data Science"],
-            "answered": 25,
-            "joinedon": "2024-06-10T09:00:00Z"
-        },
-        {
-            "_id": "u54321",
-            "name": "Jane Smith",
-            "email": "janesmith@example.com",
-            "password": "mypassword456",
-            "about": "Data Scientist with expertise in machine learning and big data.",
-            "tags": ["Machine Learning", "Python", "Data Science"],
-            "answered": 25,
-            "joinedon": "2024-06-10T09:00:00Z"
-        },
-        {
-            "_id": "u54321",
-            "name": "Jane Smith",
-            "email": "janesmith@example.com",
-            "password": "mypassword456",
-            "about": "Data Scientist with expertise in machine learning and big data.",
-            "tags": ["Machine Learning", "Python", "Data Science"],
-            "answered": 25,
-            "joinedon": "2024-06-10T09:00:00Z"
-        },
-        {
-            "_id": "u54321",
-            "name": "Jane Smith",
-            "email": "janesmith@example.com",
-            "password": "mypassword456",
-            "about": "Data Scientist with expertise in machine learning and big data.",
-            "tags": ["Machine Learning", "Python", "Data Science"],
-            "answered": 25,
-            "joinedon": "2024-06-10T09:00:00Z"
-        }
-    ];
 
+    const users: UsersListType = useSelector((state) => state.usersreducer);
     const currentprofile = users.filter((user) => user._id === id)[0];
-    const currentuser = {
-        "_id": "u54321",
-        "name": "Jane Smith",
-        "email": "janesmith@example.com",
-        "password": "mypassword456",
-        "about": "Data Scientist with expertise in machine learning and big data.",
-        "tags": ["Machine Learning", "Python", "Data Science"],
-        "answered": 25,
-        "joinedon": "2024-06-10T09:00:00Z"
-    };
+    const currentuser = useSelector((state) => state.currentuserreducer);
 
     return (
         <div className="home-container-1">
@@ -89,7 +40,7 @@ const Userprofile:React.FC<UserprofileProps> = ({slidein}) => {
                                 </p>
                             </div>
                         </div>
-                        {currentuser?._id === id && (
+                        {currentuser?.result?._id === id && (
                             <button className="edit-profile-btn" type="button" onClick={() => setswitch(true)}>
                                 <FontAwesomeIcon icon={faPen}/> Edit Profile
                             </button>

@@ -1,4 +1,6 @@
 import { UserType } from "../Users/Userslist";
+import { useDispatch, UseDispatch } from "react-redux";
+import { updateprofile } from "../../action/users";
 import { SetStateAction, Dispatch, useState } from "react";
 import './Userprofile.css';
 
@@ -9,14 +11,17 @@ type EditprofileformProps = {
 
 const Editprofileform:React.FC<EditprofileformProps> = ({currentuser, setswitch}) => {
 
-    const [name, setname] = useState(currentuser?.name);
-    const [about, setabout] = useState(currentuser?.about);
+    const [name, setname] = useState(currentuser?.result?.name);
+    const [about, setabout] = useState(currentuser?.result?.about);
     const [tags, settags] = useState([]);
+    const dispatch = useDispatch();
 
     const handlesubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if(tags[0] == '' || tags.length === 0) {
             alert("update tags field");
+        } else {
+            dispatch(updateprofile(currentuser?.result?._id, {name, about, tags}));
         }
 
         setswitch(false);

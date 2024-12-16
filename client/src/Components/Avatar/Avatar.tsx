@@ -1,12 +1,12 @@
 type AvatarProps = {
-    backgroundColor: string;
-    px: string;
-    py: string;
-    color: string;
-    borderRadius: string;
-    fontSize: string;
-    cursor: string;
-    children: React.ReactNode;
+    backgroundColor?: string;
+    px?: string;
+    py?: string;
+    color?: string;
+    borderRadius?: string;
+    fontSize?: string;
+    cursor?: string;
+    children?: React.ReactNode;
 };
 
 const Avatar:React.FC<AvatarProps> = ({
