@@ -4,7 +4,7 @@ import App from './App.tsx';
 import './index.css';
 import { Provider } from 'react-redux';
 import { legacy_createStore as createstore, applyMiddleware, compose } from 'redux';
-import thunk from 'react-redux';
+import {thunk} from 'redux-thunk';
 import reducers from './reducers';
 
 const store = createstore(reducers, compose(applyMiddleware(thunk)));

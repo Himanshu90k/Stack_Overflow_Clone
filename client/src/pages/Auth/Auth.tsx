@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
 import './Auth.css';
 import icon from '../../assets/icon.png';
 import Aboutauth from "./Aboutauth";
+import { signup, login } from "../../action/auth";
 
 const Auth = () => {
 
@@ -9,6 +12,8 @@ const Auth = () => {
     const [name, setName] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -19,8 +24,10 @@ const Auth = () => {
             if(!name) {
                 alert("Enter a name to continue");
             }
+            dispatch(signup({name, email, password}));
             console.log(name, password, email);
         } else {
+            dispatch(login({email, password}));
             console.log(email, password);
         }
     };
