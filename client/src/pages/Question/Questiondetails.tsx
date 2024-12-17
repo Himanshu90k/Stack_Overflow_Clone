@@ -9,7 +9,7 @@ import Displayanswer from "./Displayanswer";
 import { Link, useNavigate, useLocation, useParams } from "react-router-dom";
 import { questionlist } from "../../Components/Homemainbar/Questionlist";
 import { UseSelector, useDispatch, useSelector } from "react-redux";
-import { deletequestion, votequestion } from "../../action/question";
+import { deletequestion, votequestion, postanswer } from "../../action/question";
 
 
 const Questiondetails = () => {
@@ -33,6 +33,12 @@ const Questiondetails = () => {
             if(answer === '') {
                 alert("Enter an answer before submitting");
             } else {
+                dispatch(postanswer({
+                    id, 
+                    noofanswers: answerlength+1, 
+                    answerbody: answer, 
+                    useranswered: user.result.name
+                }));
                 setAnswer("");
             }
         }

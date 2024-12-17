@@ -39,3 +39,23 @@ export const votequestion = (id, value) => async (dispatch) => {
         console.log(error);
     }
 };
+
+export const postanswer = (answerdata) => async(dispatch) => {
+    try {
+        const { id, noofanswers, answerbody, useranswered } = answerdata;
+        const { data } = await api.postanswer(id, noofanswers, answerbody, useranswered);
+        dispatch({ type: 'POST_ANSWER', payload: data });
+        dispatch(fetchallquestion());
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const deleteanswer = (id , answerid, noofanswers) => async(dispatch) => {
+    try {
+        await api.deleteanswer(id, answerid, noofanswers);
+        dispatch(fetchallquestion());
+    } catch (error) {
+        console.log(error);
+    }
+};

@@ -1,7 +1,9 @@
 import moment from "moment";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Avatar from "../../Components/Avatar/Avatar";
 import { question } from "../../Components/Homemainbar/Questionlist";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteanswer } from "../../api";
 
 type DisplayanswerProps = {
     question: question;
@@ -10,10 +12,12 @@ type DisplayanswerProps = {
 
 const Displayanswer: React.FC<DisplayanswerProps> = ({ question, handleshare }) => {
 
-    const user = null;
-    // const handleDelete = (answerid, noofanswers) => {
-
-    // }
+    const user = useSelector((state) => state.currentuserreducer);
+    const { id } = useParams();
+    const dispatch = useDispatch();
+    const handleDelete = (answerid, noofanswers) => {
+        dispatch(deleteanswer(id, answerid, noofanswers));
+    };
 
     return (
         <div>
