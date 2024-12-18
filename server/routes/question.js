@@ -1,5 +1,5 @@
 import express from 'express';
-import { Askquestion, getallquestion,deletequestion, votequestion } from '../controllers/Question';
+import { Askquestion, getallquestion,deletequestion, votequestion } from '../controllers/Question.js';
 import auth from '../middleware/auth.js';
 
 const router = express.Router();
