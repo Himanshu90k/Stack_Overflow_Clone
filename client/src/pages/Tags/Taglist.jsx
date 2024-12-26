@@ -1,3 +1,5 @@
+import React from 'react'
+
 const Taglist = ({ tag }) => {
     return (
         <div className="tag">
@@ -5,6 +7,6 @@ const Taglist = ({ tag }) => {
             <p>{tag.tagDesc}</p>
         </div>
     )
-};
+}
 
-export default Taglist;
+export default Taglist

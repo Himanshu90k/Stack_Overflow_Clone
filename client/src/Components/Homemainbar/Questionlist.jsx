@@ -1,7 +1,7 @@
-import Question from "./Question";
-
-
-const Questionlist = ({ questionlist }) => {
+import React from 'react'
+import Question from './Question'
+function Questionlist({ questionlist }) {
+    // console.log(questionlist)
     return (
         <>
             {questionlist.map((question) => (
@@ -9,6 +9,6 @@ const Questionlist = ({ questionlist }) => {
             ))}
         </>
     )
-};
+}
 
-export default Questionlist;
+export default Questionlist

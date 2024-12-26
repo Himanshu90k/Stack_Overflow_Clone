@@ -1,7 +1,7 @@
-import Leftsidebar from "../../Components/Leftsidebar/Leftsidebar";
-import './Users.css';
-import Userslist from "./Userslist";
-
+import React from 'react'
+import Leftsidebar from '../../Components/Leftsidebar/Leftsidebar'
+import './Users.css'
+import Userslist from './Userslist'
 const Users = ({ slidein }) => {
     return (
         <div className="home-container-1">
@@ -12,6 +12,6 @@ const Users = ({ slidein }) => {
             </div>
         </div>
     )
-};
+}
 
-export default Users;
+export default Users

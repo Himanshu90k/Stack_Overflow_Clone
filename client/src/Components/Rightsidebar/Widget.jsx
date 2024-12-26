@@ -1,7 +1,8 @@
-import './Rightsidebar.css';
-import comment from '../../assets/comment-alt-solid.svg';
-import pen from '../../assets/pen-solid.svg';
-import blackLogo from '../../assets/blacklogo.svg';
+import React from "react";
+import "./Rightsidebar.css";
+import comment from "../../assets/comment-alt-solid.svg";
+import pen from "../../assets/pen-solid.svg";
+import blackLogo from "../../assets/blacklogo.svg";
 
 const Widget = () => {
     return (

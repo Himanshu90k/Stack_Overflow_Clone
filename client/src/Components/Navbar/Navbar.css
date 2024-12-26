@@ -16,9 +16,7 @@
 
 .navbar {
     height: 100%;
-    width: 100%;
-    padding: 0% 3%;
-    min-height: 85%;
+    min-width: 85%;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -50,7 +48,7 @@
 }
 
 .nav-item {
-  
+
     margin: 0px 3px;
     font-size: small;
     font-weight: 500;
@@ -74,10 +72,11 @@
     flex-grow: 1;
     padding: 0px 12px;
     position: relative;
+
 }
 
 .navbar .navbar-1 form input {
-    min-width: 90%;
+    width: 600px;
     margin: 0;
     padding: 8px 10px 8px 32px;
     font-size: 13px;
@@ -120,4 +119,3 @@
         display: none;
     }
 }
- 

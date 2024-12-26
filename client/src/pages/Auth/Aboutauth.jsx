@@ -1,3 +1,5 @@
+import React from 'react'
+
 const Aboutauth = () => {
     return (
         <div className="auth-container-1">

@@ -1,3 +1,5 @@
+import React from 'react'
+
 const Profilebio = ({ currentprofile }) => {
     return (
         <div>
@@ -10,7 +12,7 @@ const Profilebio = ({ currentprofile }) => {
                         ))}
                     </>
                 ) : (
-                    <p>0 Tags watched</p>
+                    <p> 0 Tags watched</p>
                 )}
             </div>
             <div>{currentprofile?.about ? (
@@ -20,10 +22,9 @@ const Profilebio = ({ currentprofile }) => {
                 </>
             ) : (
                 <p>No bio found</p>
-            )}
-            </div>
+            )}</div>
         </div>
     )
-};
+}
 
-export default Profilebio;
+export default Profilebio

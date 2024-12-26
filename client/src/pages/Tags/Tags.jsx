@@ -1,8 +1,8 @@
-import Leftsidebar from "../../Components/Leftsidebar/Leftsidebar";
-import Taglist from "./Taglist";
-import './Tags.css';
-import { tagsList } from "./Tagslist";
-
+import React from 'react'
+import Leftsidebar from '../../Components/Leftsidebar/Leftsidebar'
+import Taglist from './Taglist'
+import './Tags.css'
+import { tagsList } from './tagslist'
 const Tags = ({ slidein }) => {
     return (
         <div className="home-container-1">
@@ -11,7 +11,7 @@ const Tags = ({ slidein }) => {
                 <h1 className="tags-h1">
                     Tags
                 </h1>
-                <p className="tags-p">A tag is a keyword or label that categorizes your question with other similar question.</p>
+                <p className="tags-p">A tag is akeyword or label that categorizes your question with other similar question.</p>
                 <p className="tags-p">
                     Using the right tags makes it easier for others to find and answer your question
                 </p>
@@ -23,6 +23,6 @@ const Tags = ({ slidein }) => {
             </div>
         </div>
     )
-};
+}
 
-export default Tags;
+export default Tags

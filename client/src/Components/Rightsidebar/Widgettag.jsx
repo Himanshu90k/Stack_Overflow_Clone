@@ -1,5 +1,6 @@
-const Widgettag = () => {
+import React from 'react'
 
+function Widgettag() {
     const tags = [
         "c",
         "css",
@@ -7,6 +8,7 @@ const Widgettag = () => {
         "firebase",
         "html",
         "java",
+        "javascript",
         "mern",
         "mongodb",
         "mysql",
@@ -14,9 +16,8 @@ const Widgettag = () => {
         "node.js",
         "php",
         "python",
-        "react.js",
+        "reactjs",
     ]
-
     return (
         <div className="widget-tags">
             <h4>Watched tags</h4>
@@ -27,6 +28,6 @@ const Widgettag = () => {
             </div>
         </div>
     )
-};
+}
 
-export default Widgettag;
+export default Widgettag
