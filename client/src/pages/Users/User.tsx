@@ -1,6 +1,11 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
-const User = ({ user }) => {
+import { UserType } from '../../state/users/usersSlice'
+
+interface UserProps {
+    user: UserType;
+};
+
+const User: React.FC<UserProps> = ({ user }) => {
     return (
         <Link to={`/Users/${user._id}`} className='user-profile-link'>
             <h3>{user.name.charAt(0).toUpperCase()}</h3>
