@@ -14,8 +14,8 @@ API.interceptors.request.use((req) => {
     return req;
 });
 
-export const login = (authdata) => API.post('user/login', authdata);
-export const signup = (authdata) => API.post('user/signup', authdata);
+export const login = (authdata: {email: string, password: string}) => API.post('user/login', authdata);
+export const signup = (authdata: {name: string, email: string, password: string}) => API.post('user/signup', authdata);
 export const getallusers = () => API.get('/user/getallusers');
 export const updateprofile = (id: string, updatedata: {name: string, about: string, tags: string[]}) => API.patch(`user/update/${id}`, updatedata);
 
