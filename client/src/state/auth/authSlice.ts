@@ -1,5 +1,10 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import * as api from '../../api';
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../store";
+import { setCurrentUser } from "../currentUser/currentUserSlice";
+import { fetchUsersAsync } from "../users/usersSlice";
 
 interface AuthState {
     result: {
@@ -12,6 +17,9 @@ interface AuthState {
 
 const initialState: AuthState = {result: {name: '', email: '', password: ''}, token: ''};
 
+const dispatch = useDispatch<AppDispatch>();
+const navigate = useNavigate();
+
 const authSlice = createSlice({
     name: 'auth',
     initialState,
@@ -21,7 +29,14 @@ const authSlice = createSlice({
         .addCase(signupAsync.fulfilled, (state, action: PayloadAction<{result: AuthState["result"], token: AuthState["token"]}>) => {
             localStorage.setItem('Profile', JSON.stringify(action.payload));
             state.result = action.payload.result;
-            state.token = action.payload.token;
+
+            const profile = localStorage.getItem('Profile');
+            if(profile) {
+                dispatch(setCurrentUser(JSON.parse(profile)));
+            };
+
+            dispatch(fetchUsersAsync());
+            navigate('/');
         })
         .addCase(signupAsync.rejected, (_, action) => {
             console.log(action.error);
@@ -31,7 +46,13 @@ const authSlice = createSlice({
         .addCase(loginAsync.fulfilled, (state, action: PayloadAction<AuthState>) => {
             localStorage.setItem('Profile', JSON.stringify(action.payload));
             state.result = action.payload.result;
-            state.token = action.payload.token;
+
+            const profile = localStorage.getItem('Profile');
+            if(profile) {
+                dispatch(setCurrentUser(JSON.parse(profile)));
+            };
+
+            navigate('/');
         })
         .addCase(loginAsync.rejected, (_, action) => {
             console.log(action.error);
