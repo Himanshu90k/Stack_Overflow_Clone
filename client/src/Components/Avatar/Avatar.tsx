@@ -1,21 +1,30 @@
-import React from 'react'
+interface AvatarProps {
+    children: React.ReactNode;
+    backgroundColor: string;
+    px: string;
+    py: string;
+    color?: string;
+    borderRadius?: string;
+    fontSize?: string;
+    cursor?: string;
+};
 
-function Avatar({
+const Avatar: React.FC<AvatarProps> = ({
     children,
     backgroundColor,
     px,
     py,
     color,
     borderRadius, fontSize, cursor
-}) {
-    const style = {
+}) => {
+    const style: React.CSSProperties = {
         backgroundColor,
         padding: `${py} ${px}`,
         color: color || "black",
         borderRadius,
         fontSize,
         textAlign: "center",
-        cursor: cursor || null,
+        cursor: cursor || undefined,
         textDecoration: "none"
     };
     return (

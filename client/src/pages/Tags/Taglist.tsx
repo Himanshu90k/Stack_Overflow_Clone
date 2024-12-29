@@ -1,6 +1,11 @@
-import React from 'react'
+interface TaglistProps {
+    tag: {
+        tagName: string;
+        tagDesc: string;
+    }
+};
 
-const Taglist = ({ tag }) => {
+const Taglist: React.FC<TaglistProps> = ({ tag }) => {
     return (
         <div className="tag">
             <h5>{tag.tagName}</h5>

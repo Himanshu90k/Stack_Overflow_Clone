@@ -1,9 +1,13 @@
-import React from 'react'
-import Leftsidebar from '../../Components/Leftsidebar/Leftsidebar'
-import Taglist from './Taglist'
-import './Tags.css'
-import { tagsList } from './tagslist'
-const Tags = ({ slidein }) => {
+import Leftsidebar from '../../Components/Leftsidebar/Leftsidebar';
+import Taglist from './Taglist';
+import './Tags.css';
+import { tagsList } from './Tagslist';
+
+interface TagsProps {
+    slidein: boolean;
+};
+
+const Tags: React.FC<TagsProps> = ({ slidein }) => {
     return (
         <div className="home-container-1">
             <Leftsidebar slidein={slidein} />

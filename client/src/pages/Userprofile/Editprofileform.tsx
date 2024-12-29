@@ -1,22 +1,31 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { updateprofile } from '../../action/users'
-import './Userprofile.css'
-const Editprofileform = ({ currentuser, setswitch }) => {
-    const [name, setname] = useState(currentuser?.result?.name)
-    const [about, setabout] = useState(currentuser?.result?.about)
-    const [tags, settags] = useState([])
-    const dispatch = useDispatch()
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { updateProfileAsync, UserType } from '../../state/users/usersSlice';
+import './Userprofile.css';
+import { AppDispatch } from '../../state/store';
 
-    const handlesubmit = (e) => {
+interface EditprofileformProps {
+    currentuser: UserType;
+    setswitch: React.Dispatch<React.SetStateAction<boolean>>
+};
+
+const Editprofileform: React.FC<EditprofileformProps> = ({ currentuser, setswitch }) => {
+
+    const [name, setname] = useState(currentuser?.result?.name);
+    const [about, setabout] = useState(currentuser?.result?.about);
+    const [tags, settags] = useState<string[]>([]);
+    const dispatch = useDispatch<AppDispatch>();
+
+    const handlesubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         if (tags[0] === '' || tags.length === 0) {
-            alert("update tags field")
+            alert("update tags field");
         } else {
-            dispatch(updateprofile(currentuser?.result?._id, { name, about, tags }))
+            dispatch(updateProfileAsync({id: currentuser?.result?._id, updatedata: { name, about, tags }}));
         }
-        setswitch(false)
-    }
+        setswitch(false);
+    };
+
     return (
         <div>
             <h1 className="edit-profile-title">Edit Your Profile</h1>
@@ -28,7 +37,7 @@ const Editprofileform = ({ currentuser, setswitch }) => {
                 </label>
                 <label htmlFor="about">
                     <h3>About me</h3>
-                    <textarea name="" id="about" cols="30" rows="10" value={about} onChange={(e) => setabout(e.target.value)}></textarea>
+                    <textarea name="" id="about" cols={30} rows={10} value={about} onChange={(e) => setabout(e.target.value)}></textarea>
                 </label>
                 <label htmlFor="tags">
                     <h3>Watched tags</h3>

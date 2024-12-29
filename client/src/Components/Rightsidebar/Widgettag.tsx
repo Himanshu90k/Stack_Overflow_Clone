@@ -1,5 +1,3 @@
-import React from 'react'
-
 function Widgettag() {
     const tags = [
         "c",
@@ -27,7 +25,7 @@ function Widgettag() {
                 ))}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Widgettag
+export default Widgettag;

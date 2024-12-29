@@ -1,13 +1,18 @@
-import React from 'react'
+import { UserType } from "../../state/users/usersSlice";
 
-const Profilebio = ({ currentprofile }) => {
+interface ProfilebioProps {
+    currentprofile: UserType
+};
+
+const Profilebio: React.FC<ProfilebioProps> = ({ currentprofile }) => {
+
     return (
         <div>
             <div>
-                {currentprofile?.tags.length !== 0 ? (
+                {currentprofile?.result.tags.length !== 0 ? (
                     <>
                         <h4>Tags watched</h4>
-                        {currentprofile?.tags.map((tag) => (
+                        {currentprofile?.result.tags.map((tag) => (
                             <p key={tag}>{tag}</p>
                         ))}
                     </>
@@ -15,16 +20,16 @@ const Profilebio = ({ currentprofile }) => {
                     <p> 0 Tags watched</p>
                 )}
             </div>
-            <div>{currentprofile?.about ? (
+            <div>{currentprofile?.result.about ? (
                 <>
                     <h4>About</h4>
-                    <p>{currentprofile?.about}</p>
+                    <p>{currentprofile?.result.about}</p>
                 </>
             ) : (
                 <p>No bio found</p>
             )}</div>
         </div>
-    )
-}
+    );
+};
 
-export default Profilebio
+export default Profilebio;

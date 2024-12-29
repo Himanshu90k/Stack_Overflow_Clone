@@ -1,5 +1,3 @@
-import React from 'react'
-
 const Aboutauth = () => {
     return (
         <div className="auth-container-1">
@@ -15,7 +13,7 @@ const Aboutauth = () => {
                 Get Stack Overflow for Teams free for up to 50 users.
             </p>
         </div>
-    )
-}
+    );
+};
 
-export default Aboutauth
+export default Aboutauth;

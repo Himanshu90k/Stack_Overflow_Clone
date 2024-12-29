@@ -1,8 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import * as api from '../../api';
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../store";
 import { setCurrentUser } from "../currentUser/currentUserSlice";
 import { fetchUsersAsync } from "../users/usersSlice";
 
@@ -16,9 +13,6 @@ interface AuthState {
 };
 
 const initialState: AuthState = {result: {name: '', email: '', password: ''}, token: ''};
-
-const dispatch = useDispatch<AppDispatch>();
-const navigate = useNavigate();
 
 const authSlice = createSlice({
     name: 'auth',

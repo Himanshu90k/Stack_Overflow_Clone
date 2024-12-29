@@ -1,40 +1,43 @@
-import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import "./Auth.css"
-import icon from '../../assets/icon.png'
-import Aboutauth from './Aboutauth'
-import { signup, login } from '../../action/auth'
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import "./Auth.css";
+import icon from '../../assets/icon.png';
+import Aboutauth from './Aboutauth';
+import { signupAsync, loginAsync } from '../../state/auth/authSlice';
+import { AppDispatch } from '../../state/store';
+
 const Auth = () => {
-    const [issignup, setissignup] = useState(false)
+
+    const [issignup, setissignup] = useState(false);
     const [name, setname] = useState("");
     const [email, setemail] = useState("");
-    const [password, setpassword] = useState("")
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const handlesubmit = (e) => {
+    const [password, setpassword] = useState("");
+    const dispatch = useDispatch<AppDispatch>();
+
+    const handlesubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!email && !password) {
-            alert("Enter email and password")
+            alert("Enter email and password");
         }
         if (issignup) {
             if (!name) {
-                alert("Enter a name to continue")
+                alert("Enter a name to continue");
             }
-            dispatch(signup({ name, email, password }, navigate))
+            dispatch(signupAsync({ name, email, password }));
 
         } else {
-            dispatch(login({ email, password }, navigate))
+            dispatch(loginAsync({ email, password }));
 
         }
-    }
+    };
+
     const handleswitch = () => {
+
         setissignup(!issignup);
         setname("");
         setemail("");
         setpassword("")
-
-    }
+    };
 
     return (
         <section className="auth-section">

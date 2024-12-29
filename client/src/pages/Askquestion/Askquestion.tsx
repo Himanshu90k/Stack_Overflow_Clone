@@ -1,20 +1,25 @@
-import React, { useState } from 'react'
-import './Askquestion.css'
-import { useNavigate } from 'react-router-dom'
-import { useSelector, useDispatch } from "react-redux"
-import { askquestion } from '../../action/question'
+import { useState } from 'react';
+import './Askquestion.css';
+import { useSelector, useDispatch } from "react-redux";
+import { askQuestionAsync } from '../../state/question/questionSlice';
+import { AppDispatch, RootState } from '../../state/store';
+import { useNavigate } from 'react-router-dom';
+
 const Askquestion = () => {
+
+    const dispatch = useDispatch<AppDispatch>();
+    const user = useSelector((state: RootState) => state.currentUser);
     const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const user = useSelector((state) => state.currentuserreducer)
-    const [questiontitle, setquestiontitle] = useState("");
-    const [questionbody, setquestionbody] = useState("");
-    const [questiontag, setquestiontags] = useState("")
-    const handlesubmit = (e) => {
+    const [questionTitle, setquestiontitle] = useState("");
+    const [questionBody, setquestionbody] = useState("");
+    const [questionTag, setquestiontags] = useState([""]);
+
+    const handlesubmit = (e: React.FormEvent<HTMLFormElement>) => {
+
         e.preventDefault();
         if (user) {
-            if (questionbody && questiontitle && questiontag) {
-                dispatch(askquestion({ questiontitle, questionbody, questiontag, userposted: user.result.name }, navigate))
+            if (questionBody && questionTitle && questionTag) {
+                dispatch(askQuestionAsync({ questionTitle, questionBody, tags: questionTag, userPosted: user.result.name, dispatch, navigate }));
                 alert("you have successfuly posted a question")
 
             } else {
@@ -24,9 +29,10 @@ const Askquestion = () => {
             alert("Login to ask question")
         }
     }
-    const handleenter = (e) => {
+
+    const handleenter = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
         if (e.code === 'Enter') {
-            setquestionbody(questionbody + "\n");
+            setquestionbody(questionBody + "\n");
         }
     }
 
@@ -51,8 +57,8 @@ const Askquestion = () => {
                                 setquestionbody(e.target.value);
 
                             }}
-                                cols="30"
-                                rows="10"
+                                cols = {30}
+                                rows = {10}
                                 onKeyDown={handleenter}
                             ></textarea>
                         </label>

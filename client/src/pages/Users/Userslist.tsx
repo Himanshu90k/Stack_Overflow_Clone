@@ -10,10 +10,10 @@ const Userslist = () => {
     return (
         <div className="user-list-container">
             {users.map((user) => (
-                <User user={user} key={user?._id} />
+                <User user={user} key={user?.result?._id} />
             ))}
         </div>
-    )
-}
+    );
+};
 
-export default Userslist
+export default Userslist;

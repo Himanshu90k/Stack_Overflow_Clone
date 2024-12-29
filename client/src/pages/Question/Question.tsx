@@ -3,7 +3,11 @@ import Rightsidebar from "../../Components/Rightsidebar/Rightsidebar";
 import Homemainbar from "../../Components/Homemainbar/Homemainbar";
 import '../../App.css';
 
-const Question = ({ slidein }) => {
+interface QuestionProps {
+    slidein: boolean;
+};
+
+const Question: React.FC<QuestionProps> = ({ slidein }) => {
     return (
         <div className="home-container-1">
             <Leftsidebar slidein={slidein} />
@@ -12,7 +16,7 @@ const Question = ({ slidein }) => {
                 <Rightsidebar />
             </div>
         </div>
-    )
+    );
 };
 
 export default Question;

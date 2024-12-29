@@ -1,8 +1,14 @@
-import React from 'react'
-import Leftsidebar from '../../Components/Leftsidebar/Leftsidebar'
-import './Users.css'
-import Userslist from './Userslist'
-const Users = ({ slidein }) => {
+import React from 'react';
+import Leftsidebar from '../../Components/Leftsidebar/Leftsidebar';
+import './Users.css';
+import Userslist from './Userslist';
+
+interface UsersProps {
+    slidein: boolean;
+};
+
+const Users: React.FC<UsersProps> = ({ slidein }) => {
+    
     return (
         <div className="home-container-1">
             <Leftsidebar slidein={slidein} />
@@ -11,7 +17,7 @@ const Users = ({ slidein }) => {
                 <Userslist />
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Users
+export default Users;

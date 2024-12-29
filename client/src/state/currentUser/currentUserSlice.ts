@@ -1,15 +1,16 @@
-import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import * as api from '../../api';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { UserType } from "../users/usersSlice";
 
 const initialState: UserType = {
-    _id: '',
-    name: '',
-    email: '',
-    password: '',
-    about: '',
-    tags: [''],
-    joinedon: ''
+    result: {
+        _id: '',
+        name: '',
+        email: '',
+        password: '',
+        about: '',
+        tags: [''],
+        joinedon: ''
+    }
 };
 
 const currentUserSlice = createSlice({

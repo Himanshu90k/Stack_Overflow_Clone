@@ -1,34 +1,56 @@
-import React, { useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { useSelector, useDispatch } from "react-redux"
-import bars from '../../assets/bars-solid.svg'
+import { useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
+import bars from '../../assets/bars-solid.svg';
 import logo from '../../assets/logo.png';
-import search from '../../assets/search-solid.svg'
+import search from '../../assets/search-solid.svg';
 import Avatar from '../Avatar/Avatar';
 import './navbar.css';
-import { setcurrentuser } from '../../action/currentuser'
+import { setCurrentUser } from '../../state/currentUser/currentUserSlice';
 import { jwtDecode } from "jwt-decode"
-function Navbar({ handleslidein }) {
-    var User = useSelector((state) => state.currentuserreducer)
-    // console.log(User)
-    const navigate = useNavigate()
-    const dispatch = useDispatch();
+import { AppDispatch, RootState } from '../../state/store';
+
+interface NavbarProps {
+    handleslidein: () => void;
+};
+
+const Navbar: React.FC<NavbarProps> = ({ handleslidein }) => {
+
+    var User = useSelector((state: RootState) => state.currentUser);
+    const navigate = useNavigate();
+    const dispatch = useDispatch<AppDispatch>();
     const handlelogout = () => {
-        dispatch({ type: "LOGOUT" })
-        navigate("/")
-        dispatch(setcurrentuser(null))
-    }
+
+        dispatch({ type: "LOGOUT" });
+        navigate("/");
+        dispatch(setCurrentUser({
+            result: {
+                _id: '',
+                name: '',
+                email: '',
+                password: '',
+                about: '',
+                tags: [''],
+                joinedon: ''
+            }
+        }));
+    };
 
     useEffect(() => {
-        const token = User?.token;
+        const token = User.token;
         if (token) {
-            const decodedtoken = jwtDecode(token);
+            const decodedtoken = jwtDecode<{exp: number}>(token);
             if (decodedtoken.exp * 1000 < new Date().getTime()) {
                 handlelogout();
-            }
-        }
-        dispatch(setcurrentuser(JSON.parse(localStorage.getItem("Profile"))))
-    }, [User?.token, dispatch]);
+            };
+        };
+        
+        const profile = localStorage.getItem('Profile');
+        if(profile) {
+            dispatch(setCurrentUser(JSON.parse(profile)));
+        };
+
+    }, [User.token, dispatch]);
     return (
         <nav className="main-nav">
             <div className="navbar">

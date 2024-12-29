@@ -2,13 +2,16 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import * as api from '../../api'
 
 export interface UserType {
-    _id: string;
-    name: string;
-    email?: string;
-    password?: string;
-    about: string;
-    tags?: string[];
-    joinedon: string;
+    result: {
+        _id: string;
+        name: string;
+        email?: string;
+        password?: string;
+        about: string;
+        tags: string[];
+        joinedon: string;
+    };
+    token?: string;
 };
 
 const initialState: UserType[] = [];
@@ -23,7 +26,7 @@ const usersSlice = createSlice({
         });
 
         builder.addCase(updateProfileAsync.fulfilled, (state, action: PayloadAction<UserType>) => {
-            return state.map((user) => user._id === action.payload._id ? action.payload : user);
+            return state.map((user) => user.result._id === action.payload.result._id ? action.payload : user);
         });
     },
 });
