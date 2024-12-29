@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import * as api from '../../api';
+import { AppDispatch } from "../store";
 
 export interface questionState {
     _id: string;
@@ -32,9 +33,7 @@ const questionSlice = createSlice({
     reducers: {},
     extraReducers(builder) {
         builder
-            .addCase(askQuestionAsync.fulfilled, (state, action) => {
-                dispatch(fetchAllQuestionAsync());
-                navigate('/');
+            .addCase(askQuestionAsync.fulfilled, (state) => {
                 return state;
             })
             .addCase(askQuestionAsync.rejected, (_, action) => {
@@ -50,45 +49,42 @@ const questionSlice = createSlice({
             });
 
         builder
-            .addCase(deleteQuestionAsync.fulfilled, () => {
-                dispatch(fetchAllQuestionAsync());
-                navigate('/');
-            })
             .addCase(deleteQuestionAsync.rejected, (_, action) => {
                 console.log(action.error);
             });
 
         builder
-            .addCase(voteQuestionAsync.fulfilled, () => {
-                dispatch(fetchAllQuestionAsync());
-            })
             .addCase(voteQuestionAsync.rejected, (_, action) => {
                 console.log(action.error);
             });
 
         builder
-            .addCase(postAnswerAsync.fulfilled, () => {
-                dispatch(fetchAllQuestionAsync());
-            })
             .addCase(postAnswerAsync.rejected, (_, action) => {
                 console.log(action.error);
             });
 
         builder
-            .addCase(deleteAnswerAsync.fulfilled, () => {
-                dispatch(fetchAllQuestionAsync());
-            })
             .addCase(deleteAnswerAsync.rejected, (_, action) => {
                 console.log(action.error);
             });
     },
 });
 
-export const askQuestionAsync = createAsyncThunk(
+export const askQuestionAsync = createAsyncThunk<
+    void, // return type
+    { questionTitle: string, questionBody: string, tags: string[], userPosted: string, navigate: (path: string) => void }, // payload type
+    { dispatch: AppDispatch } //dispatch type
+>(
     'question/askQuestionAsync',
-    async (data: { questionTitle: string, questionBody: string, tags: string[], userPosted: string, navigate: (path: string) => void }) => {
-        await api.postquestion(data);
-        return data.navigate;
+    async ({ questionTitle, questionBody, tags, userPosted, navigate }, thunkApi) => {
+        const { dispatch } = thunkApi;
+        const data = { questionTitle, questionBody, tags, userPosted };
+        const response = await api.postquestion(data);
+
+        if(response.status === 200) {
+            dispatch(fetchAllQuestionAsync());
+            navigate('/');
+        }
     },
 );
 
@@ -100,32 +96,68 @@ export const fetchAllQuestionAsync = createAsyncThunk(
     },
 );
 
-export const deleteQuestionAsync = createAsyncThunk(
+export const deleteQuestionAsync = createAsyncThunk<
+    void,
+    { id: string, navigate: (path: string) => void},
+    { dispatch: AppDispatch }
+>(
     'question/deleteQuestionAsync',
-    async (id: string) => {
-        await api.deletequestion(id);
+    async ({id, navigate}, thunkApi) => {
+        const { dispatch } = thunkApi;
+        const response = await api.deletequestion(id);
+
+        if(response.status === 200) {
+            dispatch(fetchAllQuestionAsync());
+            navigate('/');
+        }
     },
 );
 
-export const voteQuestionAsync = createAsyncThunk(
+export const voteQuestionAsync = createAsyncThunk<
+    void,
+    {id: string, value: string},
+    { dispatch: AppDispatch }
+>(
     'question/voteQuestionAsync',
-    async (data: { id: string, value: string }) => {
-        await api.votequestion(data.id, data.value);
+    async ({ id, value }, thunkApi) => {
+        const { dispatch } = thunkApi;
+        const response = await api.votequestion(id, value);
+
+        if(response.status === 200) {
+            dispatch(fetchAllQuestionAsync());
+        }
     },
 );
 
-export const postAnswerAsync = createAsyncThunk(
+export const postAnswerAsync = createAsyncThunk<
+    void,
+    {id: string, noOfAnswers: number, answerBody: string, userAnswered: string},
+    { dispatch: AppDispatch }
+>(
     'question/postAnswerAsync',
-    async (data: { id: string, noOfAnswers: number, answerBody: string, userAnswered: string }) => {
-        const response = await api.postanswer(data.id, data.noOfAnswers, data.answerBody, data.userAnswered);
-        return response.data;
+    async ({ id, noOfAnswers, answerBody, userAnswered }, thunkApi) => {
+        const { dispatch } = thunkApi;
+        const response = await api.postanswer(id, noOfAnswers, answerBody, userAnswered);
+        
+        if(response.status === 200) {
+            dispatch(fetchAllQuestionAsync());
+        }
     },
 );
 
-export const deleteAnswerAsync = createAsyncThunk(
+export const deleteAnswerAsync = createAsyncThunk<
+    void,
+    {id: string, answerId: string, noOfAnswers: number},
+    { dispatch: AppDispatch }
+>(
     'question/deleteAnswerAsync',
-    async (data: { id: string, answerId: string, noOfAnswers: number }) => {
-        await api.deleteanswer(data.id, data.answerId, data.noOfAnswers);
+    async ({ id, answerId, noOfAnswers }, thunkApi) => {
+        const { dispatch } = thunkApi;
+        const response = await api.deleteanswer(id, answerId, noOfAnswers);
+
+        if(response.status === 200) {
+            dispatch(fetchAllQuestionAsync());
+        }
     },
 );
 
