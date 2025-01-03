@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateProfileAsync, UserType } from '../../state/users/usersSlice';
+import { updateProfileAsync } from '../../state/users/usersSlice';
+import { CurrentUserType } from '../../state/currentUser/currentUserSlice';
 import './Userprofile.css';
 import { AppDispatch } from '../../state/store';
 
 interface EditprofileformProps {
-    currentuser: UserType;
+    currentuser: CurrentUserType;
     setswitch: React.Dispatch<React.SetStateAction<boolean>>
 };
 

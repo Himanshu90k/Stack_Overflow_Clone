@@ -9,10 +9,10 @@ const Profilebio: React.FC<ProfilebioProps> = ({ currentprofile }) => {
     return (
         <div>
             <div>
-                {currentprofile?.result.tags.length !== 0 ? (
+                {currentprofile?.tags.length !== 0 ? (
                     <>
                         <h4>Tags watched</h4>
-                        {currentprofile?.result.tags.map((tag) => (
+                        {currentprofile?.tags.map((tag) => (
                             <p key={tag}>{tag}</p>
                         ))}
                     </>
@@ -20,10 +20,10 @@ const Profilebio: React.FC<ProfilebioProps> = ({ currentprofile }) => {
                     <p> 0 Tags watched</p>
                 )}
             </div>
-            <div>{currentprofile?.result.about ? (
+            <div>{currentprofile?.about ? (
                 <>
                     <h4>About</h4>
-                    <p>{currentprofile?.result.about}</p>
+                    <p>{currentprofile?.about}</p>
                 </>
             ) : (
                 <p>No bio found</p>

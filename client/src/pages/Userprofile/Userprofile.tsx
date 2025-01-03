@@ -9,6 +9,7 @@ import Profilebio from './Profilebio';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBirthdayCake, faPen } from '@fortawesome/free-solid-svg-icons';
 import { RootState } from '../../state/store';
+import { UserType } from '../../state/users/usersSlice';
 
 interface UserprofileProps {
     slidein: boolean;
@@ -19,8 +20,8 @@ const Userprofile: React.FC<UserprofileProps> = ({ slidein }) => {
     const { id } = useParams();
     const [Switch, setswitch] = useState(false);
 
-    const users = useSelector((state: RootState) => state.users);
-    const currentprofile = users.filter((user) => user.result._id === id)[0];
+    const users: UserType[] = useSelector((state: RootState) => state.users);
+    const currentprofile = users.filter((user) => user._id === id)[0];
     const currentuser = useSelector((state: RootState) => state.currentUser);
 
     return (
@@ -30,15 +31,15 @@ const Userprofile: React.FC<UserprofileProps> = ({ slidein }) => {
                 <section>
                     <div className="user-details-container">
                         <div className="user-details">
-                            <Avatar backgroundColor="purple" color="white" fontSize="50px" px="40px" py="30px">{currentprofile.result.name.charAt(0).toUpperCase()}</Avatar>
+                            <Avatar backgroundColor="purple" color="white" fontSize="50px" px="40px" py="30px">{currentprofile?.name.charAt(0).toUpperCase()}</Avatar>
                             <div className="user-name">
-                                <h1>{currentprofile?.result.name}</h1>
+                                <h1>{currentprofile?.name}</h1>
                                 <p>
-                                    <FontAwesomeIcon icon={faBirthdayCake} /> Joined{" "} {moment(currentprofile?.result.joinedon).fromNow()}
+                                    <FontAwesomeIcon icon={faBirthdayCake} /> Joined{" "} {moment(currentprofile?.joinedon).fromNow()}
                                 </p>
                             </div>
                         </div>
-                        {currentuser?.result?._id === id && (
+                        {currentuser?.result._id === id && (
                             <button className="edit-profile-btn" type='button' onClick={() => setswitch(true)}><FontAwesomeIcon icon={faPen} /> Edit Profile</button>
                         )}
                     </div>
