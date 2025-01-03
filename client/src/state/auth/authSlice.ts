@@ -18,13 +18,17 @@ const initialState: AuthState = { result: { name: '', email: '', password: '' },
 const authSlice = createSlice({
     name: 'auth',
     initialState,
-    reducers: {},
+    reducers: {
+        logout: (state: AuthState) => {
+            localStorage.clear();
+            state = initialState;
+        }
+    },
     extraReducers(builder) {
         builder
             .addCase(signupAsync.fulfilled, (state, action) => {
-                state.result = action.payload.data.result;
-                state.token = action.payload.data.token;
-                action.payload.navigate('/');
+                state.result = action.payload.result;
+                state.token = action.payload.token;
             })
             .addCase(signupAsync.rejected, (_, action) => {
                 console.log(action.error);
@@ -32,9 +36,8 @@ const authSlice = createSlice({
 
         builder
             .addCase(loginAsync.fulfilled, (state, action) => {
-                state.result = action.payload.data.result;
-                state.token = action.payload.data.token;
-                action.payload.navigate('/');
+                state.result = action.payload.result;
+                state.token = action.payload.token;
             })
             .addCase(loginAsync.rejected, (_, action) => {
                 console.log(action.error);
@@ -44,12 +47,12 @@ const authSlice = createSlice({
 });
 
 export const signupAsync = createAsyncThunk<
-    {data: AuthState, navigate: (path: string) => void}, // Return type
-    { name: string; email: string; password: string; navigate: (path: string) => void }, // Argument type
+    AuthState, // Return type
+    { name: string; email: string; password: string; }, // Argument type
     { dispatch: AppDispatch }
 >(
     'auth/signupAsync',
-    async ({ name, email, password, navigate }, thunkApi) => {
+    async ({ name, email, password }, thunkApi) => {
 
         const data = { name, email, password };
         const response = await api.signup(data);
@@ -64,19 +67,18 @@ export const signupAsync = createAsyncThunk<
             };
 
             dispatch(fetchUsersAsync());
-            navigate('/');
         }
-        return {data: response.data, navigate};
+        return response.data;
     },
 );
 
 export const loginAsync = createAsyncThunk<
-    {data: AuthState, navigate: (path: string) => void }, // Return type
-    { email: string; password: string; navigate: (path: string) => void }, // Argument type
+    AuthState, // Return type
+    { email: string; password: string; }, // Argument type
     { dispatch: AppDispatch }
 >(
     'auth/loginAsync',
-    async ({ email, password, navigate }, thunkApi) => {
+    async ({ email, password }, thunkApi) => {
 
         const data = { email, password };
         const response = await api.login(data);
@@ -89,8 +91,9 @@ export const loginAsync = createAsyncThunk<
                 dispatch(setCurrentUser(JSON.parse(profile)));
             };
         }
-        return {data: response.data, navigate};
+        return response.data;
     },
 );
 
+export const { logout } = authSlice.actions;
 export default authSlice.reducer;

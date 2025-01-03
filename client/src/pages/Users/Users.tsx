@@ -2,6 +2,7 @@ import React from 'react';
 import Leftsidebar from '../../Components/Leftsidebar/Leftsidebar';
 import './Users.css';
 import Userslist from './Userslist';
+import '../../App.css';
 
 interface UsersProps {
     slidein: boolean;

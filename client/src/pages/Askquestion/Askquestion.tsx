@@ -19,7 +19,7 @@ const Askquestion = () => {
         e.preventDefault();
         if (user) {
             if (questionBody && questionTitle && questionTag) {
-                dispatch(askQuestionAsync({ questionTitle, questionBody, tags: questionTag, userPosted: user.result.name, dispatch, navigate }));
+                dispatch(askQuestionAsync({ questionTitle, questionBody, tags: questionTag, userPosted: user.result.name, navigate }));
                 alert("you have successfuly posted a question")
 
             } else {

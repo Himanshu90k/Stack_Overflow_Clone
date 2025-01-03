@@ -5,6 +5,7 @@ import icon from '../../assets/icon.png';
 import Aboutauth from './Aboutauth';
 import { signupAsync, loginAsync } from '../../state/auth/authSlice';
 import { AppDispatch } from '../../state/store';
+import { useNavigate } from 'react-router-dom';
 
 const Auth = () => {
 
@@ -13,6 +14,7 @@ const Auth = () => {
     const [email, setemail] = useState("");
     const [password, setpassword] = useState("");
     const dispatch = useDispatch<AppDispatch>();
+    const navigate = useNavigate();
 
     const handlesubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -24,10 +26,11 @@ const Auth = () => {
                 alert("Enter a name to continue");
             }
             dispatch(signupAsync({ name, email, password }));
+            navigate('/');
 
         } else {
             dispatch(loginAsync({ email, password }));
-
+            navigate('/');
         }
     };
 
@@ -36,7 +39,7 @@ const Auth = () => {
         setissignup(!issignup);
         setname("");
         setemail("");
-        setpassword("")
+        setpassword("");
     };
 
     return (
@@ -87,4 +90,4 @@ const Auth = () => {
     )
 }
 
-export default Auth
+export default Auth;

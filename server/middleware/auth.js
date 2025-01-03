@@ -1,4 +1,4 @@
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken";
 
 const auth = (req, res, next) => {
     try {
@@ -7,7 +7,9 @@ const auth = (req, res, next) => {
         req.userid = decodedata?.id;
         next();
     } catch (error) {
-        console.log(error)
+        console.log(error);
+        return res.status(404).json("bad request / token expired");
     }
-}
+};
+
 export default auth;

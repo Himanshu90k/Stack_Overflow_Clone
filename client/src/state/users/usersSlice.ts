@@ -2,16 +2,11 @@ import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import * as api from '../../api'
 
 export interface UserType {
-    result: {
-        _id: string;
-        name: string;
-        email?: string;
-        password?: string;
-        about: string;
-        tags: string[];
-        joinedon: string;
-    };
-    token?: string;
+    _id: string;
+    name: string;
+    about?: string;
+    tags: string[];
+    joinedon: string;
 };
 
 const initialState: UserType[] = [];
@@ -20,13 +15,17 @@ const usersSlice = createSlice({
     name: 'users',
     initialState,
     reducers: {},
-    extraReducers (builder) {
-        builder.addCase(fetchUsersAsync.fulfilled, (_, action: PayloadAction<UserType[]>) => {
+    extraReducers(builder) {
+        builder
+        .addCase(fetchUsersAsync.fulfilled, (_, action: PayloadAction<UserType[]>) => {
             return action.payload;
+        })
+        .addCase(fetchUsersAsync.rejected, (_, action) => {
+            console.log(action.error);
         });
 
         builder.addCase(updateProfileAsync.fulfilled, (state, action: PayloadAction<UserType>) => {
-            return state.map((user) => user.result._id === action.payload.result._id ? action.payload : user);
+            return state.map((user) => user._id === action.payload._id ? action.payload : user);
         });
     },
 });
@@ -41,7 +40,7 @@ export const fetchUsersAsync = createAsyncThunk(
 
 export const updateProfileAsync = createAsyncThunk(
     'users/updateProfileAsync',
-    async (data: {id: string, updatedata: {name: string, about: string, tags: string[]}}) => {
+    async (data: { id: string, updatedata: { name: string, about: string, tags: string[] } }) => {
         const response = await api.updateprofile(data.id, data.updatedata);
         return response.data;
     },

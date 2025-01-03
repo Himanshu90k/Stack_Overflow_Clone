@@ -10,15 +10,17 @@ const initialState: UserType = {
         about: '',
         tags: [''],
         joinedon: ''
-    }
+    },
+    token: '',
 };
 
 const currentUserSlice = createSlice({
     name: 'currentUser',
     initialState,
     reducers: {
-        setCurrentUser: (state, action: PayloadAction<UserType>) => {
-            state = action.payload;
+        setCurrentUser: (state: UserType, action: PayloadAction<UserType>) => {
+            state.result = action.payload.result;
+            state.token = action.payload.token;
         },
     },
 });
