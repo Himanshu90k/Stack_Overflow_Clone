@@ -4,22 +4,22 @@ import { AppDispatch } from "../store";
 
 export interface questionState {
     _id: string;
-    questionTitle: string;
-    questionBody: string;
-    questionTags: string[];
-    noOfAnswers: number;
-    upVote: string[];
-    downVote: string[];
-    userPosted: string;
-    userId: string;
-    askedOn: string;
+    questiontitle: string;
+    questionbody: string;
+    questiontags: string[];
+    noofanswers: number;
+    upvote: string[];
+    downvote: string[];
+    userposted: string;
+    userid: string;
+    askedon: string;
     answer: [
         {
             _id: string;
-            answerBody: string;
-            userAnswered: string;
-            userId: string;
-            answeredOn: string;
+            answerbody: string;
+            useranswered: string;
+            userid: string;
+            answeredon: string;
         },
     ];
 };
@@ -41,8 +41,8 @@ const questionSlice = createSlice({
             });
 
         builder
-            .addCase(fetchAllQuestionAsync.fulfilled, (state, action: PayloadAction<questionState[]>) => {
-                state = action.payload;
+            .addCase(fetchAllQuestionAsync.fulfilled, (_, action: PayloadAction<questionState[]>) => {
+                return action.payload;
             })
             .addCase(fetchAllQuestionAsync.rejected, (_, action) => {
                 console.log(action.error);
@@ -78,7 +78,7 @@ export const askQuestionAsync = createAsyncThunk<
     'question/askQuestionAsync',
     async ({ questionTitle, questionBody, tags, userPosted, navigate }, thunkApi) => {
         const { dispatch } = thunkApi;
-        const data = { questionTitle, questionBody, tags, userPosted };
+        const data = { questiontitle: questionTitle, questionbody: questionBody, tags, userposted: userPosted };
         const response = await api.postquestion(data);
 
         if(response.status === 200) {

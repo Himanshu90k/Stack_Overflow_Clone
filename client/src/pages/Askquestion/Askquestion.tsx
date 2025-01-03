@@ -12,7 +12,7 @@ const Askquestion = () => {
     const navigate = useNavigate();
     const [questionTitle, setquestiontitle] = useState("");
     const [questionBody, setquestionbody] = useState("");
-    const [questionTag, setquestiontags] = useState([""]);
+    const [questionTag, setquestiontags] = useState<string[]>([""]);
 
     const handlesubmit = (e: React.FormEvent<HTMLFormElement>) => {
 

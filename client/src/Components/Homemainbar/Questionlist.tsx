@@ -6,7 +6,6 @@ interface QuestionlistProps {
 };
 
 const Questionlist: React.FC<QuestionlistProps> = ({ questionlist }) => {
-    // console.log(questionlist)
     return (
         <>
             {questionlist.map((question) => (

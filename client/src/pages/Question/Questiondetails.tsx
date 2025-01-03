@@ -32,7 +32,7 @@ const Questiondetails = () => {
             if (answer === "") {
                 alert("Enter an answer before submitting");
             } else {
-                if(id) {
+                if (id) {
                     dispatch(postAnswerAsync({
                         id,
                         noOfAnswers: answerlength + 1,
@@ -51,8 +51,8 @@ const Questiondetails = () => {
     };
 
     const handledelete = () => {
-        if(id) {
-            dispatch(deleteQuestionAsync(id));
+        if (id) {
+            dispatch(deleteQuestionAsync({ id, navigate }));
         }
     };
 
@@ -61,8 +61,8 @@ const Questiondetails = () => {
             alert("Login or Signup to answer a question");
             navigate('/Auth');
         } else {
-            if(id) {
-                dispatch(voteQuestionAsync({id, value: "upvote"}));
+            if (id) {
+                dispatch(voteQuestionAsync({ id, value: "upvote" }));
             }
         }
     };
@@ -72,8 +72,8 @@ const Questiondetails = () => {
             alert("Login or Signup to answer a question");
             navigate('/Auth');
         } else {
-            if(id) {
-                dispatch(voteQuestionAsync({id, value: "downvote"}));
+            if (id) {
+                dispatch(voteQuestionAsync({ id, value: "downvote" }));
             }
         }
     };
@@ -87,17 +87,17 @@ const Questiondetails = () => {
                     {questionlist.filter((question) => question._id === id).map((question) => (
                         <div key={question._id}>
                             <section className='question-details-container'>
-                                <h1>{question.questionTitle}</h1>
+                                <h1>{question.questiontitle}</h1>
                                 <div className="question-details-container-2">
                                     <div className="question-votes">
                                         <img src={upvote} alt="" width={18} className='votes-icon' onClick={handleupvote} />
-                                        <p>{question.upVote.length - question.downVote.length}</p>
+                                        <p>{question.upvote.length - question.downvote.length}</p>
                                         <img src={downvote} alt="" width={18} className='votes-icon' onClick={handledownvote} />
                                     </div>
                                     <div style={{ width: "100%" }}>
-                                        <p className='question-body'>{question.questionBody}</p>
+                                        <p className='question-body'>{question.questionbody}</p>
                                         <div className="question-details-tags">
-                                            {question.questionTags.map((tag) => (
+                                            {question.questiontags.map((tag) => (
                                                 <p key={tag}>{tag}</p>
                                             ))}
                                         </div>
@@ -106,26 +106,26 @@ const Questiondetails = () => {
                                                 <button type='button' onClick={handleshare}>
                                                     Share
                                                 </button>
-                                                {user?.result?._id === question?.userId && (
+                                                {user?.result?._id === question?.userid && (
                                                     <button type='button' onClick={handledelete}>Delete</button>
                                                 )}
                                             </div>
                                             <div>
-                                                <p>Asked {moment(question.askedOn).fromNow()}</p>
-                                                <Link to={`Users/${question.userId}`} className='user-limk' style={{ color: "#0086d8" }}>
+                                                <p>Asked {moment(question.askedon).fromNow()}</p>
+                                                <Link to={`/Users/${question.userid}`} className='user-link' style={{ color: "#0086d8" }}>
                                                     <Avatar backgroundColor="orange" px="8px" py="5px" borderRadius="4px">
-                                                        {question.userPosted.charAt(0).toUpperCase()}
+                                                        {question.userposted.charAt(0).toUpperCase()}
                                                     </Avatar>
-                                                    <div>{question.userPosted}</div>
+                                                    <div>{question.userposted}</div>
                                                 </Link>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </section>
-                            {question.noOfAnswers !== 0 && (
+                            {question.noofanswers !== 0 && (
                                 <section>
-                                    <h3>{question.noOfAnswers} Answers</h3>
+                                    <h3>{question.noofanswers} Answers</h3>
                                     <Displayanswer key={question._id} question={question} handleshare={handleshare} />
                                 </section>
                             )}
@@ -139,7 +139,7 @@ const Questiondetails = () => {
                                     <input type="submit" className="post-ans-btn" value="Post your Answer" />
                                 </form>
                                 <p>Browse other Question tagged
-                                    {question.questionTags.map((tag) => (
+                                    {question.questiontags.map((tag) => (
                                         <Link to="/Tags" key={tag} className='ans-tag'>
                                             {" "}
                                             {tag}{" "}

@@ -1,6 +1,7 @@
 import Leftsidebar from '../../Components/Leftsidebar/Leftsidebar';
 import Rightsidebar from '../../Components/Rightsidebar/Rightsidebar';
 import Questiondetails from './Questiondetails';
+import '../../App.css';
 
 interface DisplayquestionProps {
     slidein: boolean;

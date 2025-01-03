@@ -19,7 +19,7 @@ export const signup = (authdata: {name: string, email: string, password: string}
 export const getallusers = () => API.get('/user/getallusers');
 export const updateprofile = (id: string, updatedata: {name: string, about: string, tags: string[]}) => API.patch(`user/update/${id}`, updatedata);
 
-export const postquestion = (questiondata: {questionTitle: string, questionBody: string, tags: string[], userPosted: string}) => API.post("/question/Ask", questiondata);
+export const postquestion = (questiondata: {questiontitle: string, questionbody: string, tags: string[], userposted: string}) => API.post("/question/Ask", questiondata);
 export const getallquestions = () => API.get('/question/get');
 export const deletequestion = (id: string) => API.delete(`/question/delete/${id}`);
 export const votequestion = (id: string, value: string) => API.patch(`/question/vote/${id}`, {value});
