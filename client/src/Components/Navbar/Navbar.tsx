@@ -40,7 +40,7 @@ const Navbar: React.FC<NavbarProps> = ({ handleslidein }) => {
 
     useEffect(() => {
         const token = User.token;
-        if (token && token == '') {
+        if (token && token !== '') {
             const decodedtoken = jwtDecode<{exp: number}>(token);
             if (decodedtoken.exp * 1000 < new Date().getTime()) {
                 handlelogout();
@@ -77,15 +77,15 @@ const Navbar: React.FC<NavbarProps> = ({ handleslidein }) => {
                     </form>
                 </div>
                 <div className="navbar-2">
-                    {User?.result?.name === '' ? (
+                    {User.result.name === '' ? (
                         <Link to='/Auth' className='nav-item nav-links'>
                             Log in
                         </Link>
                     ) : (
                         <>
                             <Avatar backgroundColor='#009dff' px={'10px'} py={'7px'} borderRadius='50%' color="white">
-                                <Link to={`/Users/${User?.result?._id}`} style={{ color: "white", textDecoration: "none" }}>
-                                    {User?.result?.name.charAt(0).toUpperCase()}
+                                <Link to={`/Users/${User.result._id}`} style={{ color: "white", textDecoration: "none" }}>
+                                    {User.result.name.charAt(0).toUpperCase()}
                                 </Link>
                             </Avatar>
                             <button title='log out' className="nav-item nav-links" onClick={handlelogout}>Log out</button>

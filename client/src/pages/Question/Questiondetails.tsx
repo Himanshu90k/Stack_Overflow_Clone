@@ -78,6 +78,8 @@ const Questiondetails = () => {
         }
     };
 
+    questionlist.filter((question) => question._id === id).map((quest) => console.log(quest.userid));
+
     return (
         <div className="question-details-page">
             {questionlist === null ? (
